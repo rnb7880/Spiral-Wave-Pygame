@@ -4,12 +4,12 @@ RED = (255, 0, 0)
 class Coin():
     """
     """
-    def __init__(self,x,y):
+    def __init__(self,x,y,rad):
         self.color = (0, 255, 0)
-        self.on = False
         self.x =x
         self.y=y
         self.adjacent = []
+        self.radius = rad
 
 
 
@@ -17,13 +17,11 @@ class Coin():
         """
         uses pygame and the global screen variable to draw the building on the screen
         """
-        if self.color == (0,255,0):
-            self.color = (255,0,0)
-        else:
-            self.color = (0, 255, 0)
+        self.color = (255,0,0)
 
     def chain(self):
         self.excite()
+        self.release()
 
 
     def release(self):
@@ -35,12 +33,11 @@ class Coin():
         """
         uses pygame and the global screen variable to draw the building on the screen
         """
-        pygame.draw.circle(screen,self.color,(self.x,self.y),10)
+        pygame.draw.circle(screen,self.color,(self.x,self.y),self.radius)
     def add(self,coin):
         self.adjacent.append(coin)
     def alert(self):
         for coin in self.adjacent:
-            if coin.color == (255,0,0):
-                coin.release()
-            else:
-                coin.excite()
+            if coin.color != (255,0,0):
+                #coin.excite()
+                coin.chain()
