@@ -52,7 +52,7 @@ for line in coins:
 """
 Starting conditions
 """
-starty = 5
+starty = 4
 startx = 1
 num_start = 3
 speed = 500 #milliseconds
