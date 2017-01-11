@@ -18,18 +18,23 @@ GO = pygame.USEREVENT + 1
 """
 Board Customization
 """
-rad = 3
-many = 10
+rad = 7
+padding = 100
+many = 12
 COLOR1 = (0, 0, 0)
 COLOR2 = (0, 0, 255)
+
 
 """
 Creation of board
 """
+background_colour = (255,255,255)
+screen.fill(background_colour)
+
 coins = [[0 for i in range(many)] for j in range(many)]
 for y in range (many):
     for x in range (many):
-        coins[y][x] = Coin(x*5*rad + rad,y*5*rad + rad,rad,COLOR1,COLOR2)
+        coins[y][x] = Coin(x*5*rad + rad+padding,y*5*rad + rad+padding,rad,COLOR1,COLOR2)
 for line in coins:
     for coin in line:
 
@@ -47,10 +52,10 @@ for line in coins:
 """
 Starting conditions
 """
-starty = 2
-startx = 2
-num_start = 2
-speed = 999 #milliseconds
+starty = 5
+startx = 1
+num_start = 3
+speed = 500 #milliseconds
 
 
 """
@@ -79,10 +84,10 @@ while not over:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 print('hit space')
-                excited = null
+                excitednew = null
                 for i in range(len(starters)):
                     starters[i].excite()
-                    excited.append(starters[i])
+                    excitednew.append(starters[i])
                 null = []
 
 
@@ -113,12 +118,14 @@ while not over:
                         coin.draw(screen)
                 for coin in toexcite:
                     coin.excite()
-                excited = toexcite
+                excitedold = excitednew
+                excitednew = toexcite
                 toexcite = []
-
+    pygame.draw.rect(screen,(0,0,0),pygame.Rect(padding,padding,(many*rad*5)-rad,(many*rad*5)-rad))
     for line in coins:
         for coin in line:
             coin.draw(screen)
+
 
 
     # --- Go ahead and update the screen with what we've drawn.
